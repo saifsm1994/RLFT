@@ -2,8 +2,8 @@
   "name": "lookupsite",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://policyreporter.github.io/brother-bear-online/demo/",
-  "dependencies": {
+  "homepage": "https://saifsm1994.github.io/RLFT",
+    "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -40,3 +40,4 @@
     ]
   }
 }
+

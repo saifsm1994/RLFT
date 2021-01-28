@@ -12,7 +12,6 @@ class Formatter extends Component {
         this.updateInputValue = this.updateInputValue.bind(this);
         this.launchFormatter = this.launchFormatter.bind(this);
         this.rulesManager = this.rulesManager.bind(this);
-        this.bulletRanker = this.bulletRanker.bind(this);
         this.toggleexperimental = this.toggleexperimental.bind(this);
         this.fontSizeChange = this.fontSizeChange.bind(this);
         this.saveFontCookie = this.saveFontCookie.bind(this);
@@ -47,9 +46,9 @@ class Formatter extends Component {
 
     loadFontCookie() {
         let font = localStorage.getItem('fontSize');
-        console.log("fontSize",font)
-        if(font !== null && Number.isInteger(font)){
-            this.setState({fontSize: font})
+        console.log("fontSize", font)
+        if (font !== null && Number.isInteger(font)) {
+            this.setState({ fontSize: font })
         }
     }
 
@@ -83,122 +82,75 @@ class Formatter extends Component {
     }
 
 
-    bulletRanker(inputer) {
-        let bullet1 = new RegExp("•", "gmi");
-        let bullet2 = new RegExp("\\so\\s", "gmi");
-
-        // let bullet3 = new RegExp("[\\s\\n\\]{1}[ivx]{1,5}[\\.]", "gm");
-        let bullet4 = new RegExp("[\\s\\n]{1}[ivx]{1,5}[\\)]", "gm");
-        // let bullet5 = new RegExp("[\\s\\n]{1}[IVX]{1,5}[\\.]", "gm");
-        let bullet6 = new RegExp("[\\s\\n]{1}[IVX]{1,5}[\\)]", "gm");
-
-        let bullet7 = new RegExp("[\\s\\n^\\/]{1}[a-z]{1,2}[\\)]", "gm");
-        let bullet8 = new RegExp("[\\s\\n]{1}[a-z]{1,2}[\\.]", "gm");
-        let bullet9 = new RegExp("[\\s\\n^\\/]{1}[A-Z]{1,2}[\\)]", "gm");
-        let bullet10 = new RegExp("[\\s\\n]{1}[A-Z]{1,2}[\\.]", "gm");
-
-        // let bullet13 = new RegExp("[\\()][0-9]{1,2}[\\)]", "gm");
-        let bullet11 = new RegExp("[\\(]{0,1}[0-9]{1,2}[\\)]", "gm");
-        let bullet12 = new RegExp("[\\s][0-9]{1,2}[\\.][\\s]", "gm");
-
-        let bullet13 = new RegExp("[\\s\\n]{1}[\\(]{0,1}[a-z]{1,2}[\\)]", "gm");
-        // let bullet14 = new RegExp("[\\s\\n]{1}[a-z]{1,2}[\\.]", "gm");
-        let bullet15 = new RegExp("[\\s\\n]{1}[\\(]{0,1}[A-Z]{1,2}[\\)]", "gm");
-        // let bullet16 = new RegExp("[\\s\\n]{1}[A-Z]{1,2}[\\.]", "gm");
-
-        let allBullets = [bullet1, bullet2, bullet4, bullet6, bullet7, bullet8, bullet9, bullet10, bullet11, bullet12, bullet13, bullet15]
-        // ,bullet13]
-        let ranking = [];
-
-        // console.log("inputer.match(bullet7), inputer.match(bullet7)", inputer.match(bullet7))
-
-        allBullets.forEach((element, index) => {
-            if (inputer.match(element) != null) {
-                let element2 = inputer.indexOf(inputer.match(element)[0])
-                ranking.push([index, element2]) // [choice of bullet,relative position]
-                console.log(inputer.match(element))
-
-            }
-        });
-
-        // console.log(ranking)
-        ranking = ranking.sort(([a, b], [c, d]) => b - d);
-        console.log("bullet rankings are ", ranking)
-
-        ranking.forEach((bulletRegexPosition, currentIndex) => {
-            let bulletRegex = allBullets[bulletRegexPosition[0]]
-            console.log("chosen the bullet regex " + bulletRegex + " for " + currentIndex + " indents")
-            let spacer = "";
-            let indentString = "    ";
-
-            for (let i = 0; i < currentIndex; i++) {
-                spacer = spacer + indentString;
-            }
-
-            inputer = inputer.replace(bulletRegex, function (element) {
-                if (element.indexOf("\n") !== -1) {
-                    element = element.replace("\n", "\n" + spacer)
-                    // console.log(element)
-                } else {
-                    element = spacer + element
-                }
-                return element
-            });
-        });
-
-        return inputer
-
-
-
-
-
-    }
 
     rulesManager(inputer, type) { // expands all hcpc ranges in document
-        let lineBetweenNoCaps = new RegExp("([A-Za-z0-9]{1,55}[\\s \\,\\-]{0,4}[\\n]{1,5}[\\s]{0,5}[a-z0-9\\(]{1,55})", "gm")
-        let extraSpaces = new RegExp("[\\s\\n]{1,55}", "gmi");
-        let extraSpaces2 = new RegExp("[\\s]{1,55}", "gmi");
-        let bullets = new RegExp("[\\s\\n/^\\(^/]{1}[a-zA-Z0-9]{1,2}[\\.\\)]{1}[\\s]{0,1}[\\n]{0,1}", "gmi");
-        let failedBullets = new RegExp("[\\s]{0,55}[(/]{1}[a-zA-Z0-9]{1,2}","gmi")
-        let extraLine = new RegExp("\\n\\n", "gmi")
+        // flow
+        // 1. Take input and remove line breaks where first word is lower case and not direcly followed by a .)-
+        // a. match regexes for different bullet points and insert line breaks before them
+        // 2.remove extra line breaks
+        // 3.
+        // 4.
 
 
-        let result = inputer.replace(lineBetweenNoCaps, function (element) {
-            element = element.replace(extraSpaces, " ")
-            return element
-        });
+        let result;
+        let result2;
 
-        let result2 = result.replace(bullets, function (element) {
-            if (!element.match(failedBullets) && element.charAt(0) === " ") {
-                element = element.substring(1);
-                console.log("removing extra spacer")
-            }
-            if(element.match(failedBullets)){
-                element = element.replace(extraSpaces," ")
-            }else{
-            element = "\n" + element;
-            }
-            return element
-        });
+        let smallCapsStartingLine = new RegExp("[\\n]{1,99}[\\s]{0,99}([a-z]{0,40}[\\s]|AND|OR|NOT)", "gm");
+        let obviousBulletPoints = new RegExp("(•)|([\\s\\n]o[\\s\\n])", "gmi");
+        let letterBulletPoint = new RegExp("((?<!\\([\\sa-z]{2,99})[\\s\\n][a-z]{1,2}[.)][\\s^\\n^:^;])", "gmi");
+        let numberBulletPoint = new RegExp("((?<!\\([\\sa-z]{2,99})[\\s\\n][0-9]{1,2}[.)]([\\s^\\n^:^;]|[A-Za-z]{2}))", "gmi");
+        let RomanBulletPoint = new RegExp("((?<!\\([\\sa-z]{2,99})[\\s\\n][IVX]{1,5}[.)][\\s^\\n^:^;])", "gmi");
+        let doubleLine = new RegExp("\\n\\n", "gmi")
 
-        result = result.trim()
-        result2 = result2.trim()
+        result = inputer.replace(smallCapsStartingLine, function (element) {
+            // console.log("smallCapsStartingLine",element)
+            if (element.match(obviousBulletPoints)) { return element }
+            return element.replace("\n", " ")
+        })
 
-        result2 = this.bulletRanker(result2);
-        result2 = result2.replace(extraLine, "\n")
-        result2 = result2.replace(failedBullets,function(element){
-            console.log(element)
-            element = element.replace(extraSpaces2,"")
-            console.log(element)
+        result2 = result.replace(obviousBulletPoints, function (element) {
+            // console.log("obviousBulletPoints",element)
+            if (element.charAt(0) !== "\n") { if(element.charAt(0) === " "){return "\n" + element.substring(1) }else{return "\n" + element }}
+            return element //.replace("\n", " ")
+        })
+
+        result2 = result2.replace(letterBulletPoint, function (element) {
+            // console.log("letterBulletPoint",element)
+            if (element.match(obviousBulletPoints)) { return element }
+            if (element.charAt(0) !== "\n") { 
+                // console.log("letterBulletPoint first letter is not newline ",element)
+                if(element.charAt(0) === " "){
+                    // console.log("letterBulletPoint first letter is space ",element)
+                    return "\n" + element.substring(1) }else{
+                        // console.log("letterBulletPoint first letter is not space or new line, returning as new row ",element)
+                        return "\n" + element }}
+            return element //.replace("\n", " ")
+        })
+
+        result2 = result2.replace(numberBulletPoint, function (element) {
+            // console.log("numberBulletPoint",element)
+            if (element.match(obviousBulletPoints) || element.match(obviousBulletPoints)) { return element }
+            if (element.charAt(0) !== "\n") { if(element.charAt(0) === " "){return "\n" + element.substring(1) }else{return "\n" + element }}
+            return element //.replace("\n", " ")
+        })
+
+        result2 = result2.replace(RomanBulletPoint, function (element) {
+            console.log("RomanBulletPoint",element)
+            if (element.match(obviousBulletPoints) || element.match(numberBulletPoint) || element.match(obviousBulletPoints)) {
+                        console.log("RomanBulletPoint first letter is a match for other regexes returning ",element)
+                        return element }
+            if (element.charAt(0) !== "\n") {
+                console.log("RomanBulletPoint first letter is a newline ",element)
+                if(element.charAt(0) === " "){
+                    console.log("RomanBulletPoint first letter is a space returning as new row minus 1 letter  ",element)
+                    return "\n" + element.substring(1) }else{
+                        console.log("RomanBulletPoint first letter is a not a space or a new line returning as new row  ",element)
+                        return "\n" + element }}
             return element
         })
 
-        
-
-        // result2 = result2.replace(lineBetweenNoCaps, function (element) {
-        //     element = element.replace(extraSpaces," ")
-        //     return element       
-        // });
+        result = result.replace(doubleLine, "\n")
+        result2 = result2.replace(doubleLine, "\n")
 
         return [result, result2]
     }
@@ -264,12 +216,12 @@ class Formatter extends Component {
                                         color={this.state.experimental === true ? "primary" : "secondary"}
                                         onClick={() => this.toggleexperimental("c")}
                                     >
-                                        Experimental Indents</Button>
+                                        Experimental formatting</Button>
 
 
                                 </ButtonGroup>
                                 <ButtonGroup size="" className="buttonGroup float-right">
-                                    <label style={{paddingRight: "10px",textAlign: "center",marginTop:"5px"}}>Font Size: </label>
+                                    <label style={{ paddingRight: "10px", textAlign: "center", marginTop: "5px" }}>Font Size: </label>
                                     <Button
                                         bsSize=""
                                         name="fontSizeChange0"
@@ -290,7 +242,7 @@ class Formatter extends Component {
                             </Col>
 
                             <Card1
-                                text='This tool tries to apply basic rules regarding bullet indents and removes extra line breaks'
+                                text='This tool tries to remove extra line breaks. Experimental Formatting makes sure each bullet point is on a new line'
                             />
 
                         </Jumbotron>
