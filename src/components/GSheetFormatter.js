@@ -13,6 +13,7 @@ class GSheetFormatter extends Component {
         this.updateGSheetCellValue = this.updateGSheetCellValue.bind(this);
         this.updateGSheetapplyFormula = this.updateGSheetapplyFormula.bind(this);
         this.updateRegexFlagsValue = this.updateRegexFlagsValue.bind(this);
+        this.updateRegexFlagsValue2 = this.updateRegexFlagsValue2.bind(this);
         this.launchFunction = this.launchFunction.bind(this);
         this.resetAll = this.resetAll.bind(this);
         this.fontSizeChange = this.fontSizeChange.bind(this);
@@ -27,7 +28,8 @@ class GSheetFormatter extends Component {
             outputWithFormula: "Output Placeholder With Formula",
             outputWithFormulaReverse: "Output Placeholder With Is Not a Match Formula",
             GSheetCellValue: "A2",
-            GSheetFormulaFlag: "rdrl",
+            GSheetFormulaFlag: "rd",
+            GSheetFormulaFlag2: "rdrl",
             GSheetapplyFormula: "normal",
             fontSize: 14
 
@@ -48,7 +50,8 @@ class GSheetFormatter extends Component {
             outputWithFormula: "Output Placeholder With Formula",
             outputWithFormulaReverse: "Output Placeholder With Is Not a Match Formula",
             GSheetCellValue: "A2",
-            GSheetFormulaFlag: "rdrl",
+            GSheetFormulaFlag: "rd",
+            GSheetFormulaFlag2: "rdrl",
             GSheetapplyFormula: "normal"
         });
 
@@ -131,6 +134,36 @@ class GSheetFormatter extends Component {
             }
         }
 
+        // //radio settings for list/csv - rl is return list rcm is return csv
+        // if (val === "rl") {
+        //     GSheetFormulaFlag = GSheetFormulaFlag.replace("rcm", "");
+        //     GSheetFormulaFlag = GSheetFormulaFlag.replace("rl", "");
+        //     GSheetFormulaFlag = GSheetFormulaFlag + val;
+        // } else {
+        //     if (val === "rcm") {
+        //         GSheetFormulaFlag = GSheetFormulaFlag.replace("rcm", "");
+        //         GSheetFormulaFlag = GSheetFormulaFlag.replace("rl", "");
+        //         GSheetFormulaFlag = GSheetFormulaFlag + val;
+
+        //     } else {
+
+        //     }
+        // }
+
+
+
+        this.setState({ GSheetFormulaFlag: GSheetFormulaFlag })
+
+        console.log("new value is now " + this.state.GSheetFormulaFlag)
+
+    }
+
+    
+    updateRegexFlagsValue2(val) {
+        // console.log("calling updateRegexFlagsValue with " + val)
+        let GSheetFormulaFlag = this.state.GSheetFormulaFlag2;
+
+   
         //radio settings for list/csv - rl is return list rcm is return csv
         if (val === "rl") {
             GSheetFormulaFlag = GSheetFormulaFlag.replace("rcm", "");
@@ -149,9 +182,9 @@ class GSheetFormatter extends Component {
 
 
 
-        this.setState({ GSheetFormulaFlag: GSheetFormulaFlag })
+        this.setState({ GSheetFormulaFlag2: GSheetFormulaFlag })
 
-        console.log("new value is now " + this.state.GSheetFormulaFlag)
+        console.log("new value is now " + this.state.GSheetFormulaFlag2)
 
     }
 
@@ -252,7 +285,7 @@ class GSheetFormatter extends Component {
                                     />
                                 </Col>
                                 <Col lg="6" xl="6" md="6" sm="12">
-                                    {this.state.GSheetapplyFormula === "false" && this.state.GSheetFormulaFlag.indexOf("rcm") === -1 &&
+                                    {this.state.GSheetapplyFormula === "false" && this.state.GSheetFormulaFlag2.indexOf("rcm") === -1 &&
                                         <TextArea
                                             name="Output"
                                             value={this.state.output}
@@ -260,7 +293,7 @@ class GSheetFormatter extends Component {
                                             styler={{ fontSize: this.state.fontSize }}
                                             />}
 
-                                    {this.state.GSheetapplyFormula === "false" && this.state.GSheetFormulaFlag.indexOf("rcm") !== -1 &&
+                                    {this.state.GSheetapplyFormula === "false" && this.state.GSheetFormulaFlag2.indexOf("rcm") !== -1 &&
                                         <TextArea
                                             name="Output"
                                             value={this.state.outputCsv}
@@ -374,17 +407,17 @@ class GSheetFormatter extends Component {
                             <ButtonGroup size="sm" className="buttonGroup">
                                 <label style={{ fontSize: 14 }}>If No formula - return as:</label>
                                 <Button
-                                    color={this.state.GSheetFormulaFlag.indexOf("rl") !== -1 ? "primary" : "secondary"}
-                                    onClick={() => this.updateRegexFlagsValue("rl")}
-                                    style={{ fontSize: 10, border: "2px black solid" }}
-                                >
-                                    List</Button>
-                                <Button
-                                    color={this.state.GSheetFormulaFlag.indexOf("rcm") !== -1 ? "primary" : "secondary"}
-                                    onClick={() => this.updateRegexFlagsValue("rcm")}
+                                    color={this.state.GSheetFormulaFlag2.indexOf("rl") !== -1 ? "primary" : "secondary"}
+                                    onClick={() => this.updateRegexFlagsValue2("rl")}
                                     style={{ fontSize: 10, border: "2px black solid" }}
                                 >
                                     CSV</Button>
+                                <Button
+                                    color={this.state.GSheetFormulaFlag2.indexOf("rcm") !== -1 ? "primary" : "secondary"}
+                                    onClick={() => this.updateRegexFlagsValue2("rcm")}
+                                    style={{ fontSize: 10, border: "2px black solid" }}
+                                >
+                                    List</Button>
                             </ButtonGroup>
                             <br />
                             <br />
