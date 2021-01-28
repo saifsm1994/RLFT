@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/RLFT/static/css/main.01f9dc76.chunk.css",
-    "main.js": "/RLFT/static/js/main.ac820890.chunk.js",
-    "main.js.map": "/RLFT/static/js/main.ac820890.chunk.js.map",
-    "runtime-main.js": "/RLFT/static/js/runtime-main.b312d49e.js",
-    "runtime-main.js.map": "/RLFT/static/js/runtime-main.b312d49e.js.map",
-    "static/css/2.20aa2d7b.chunk.css": "/RLFT/static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.093be1b9.chunk.js": "/RLFT/static/js/2.093be1b9.chunk.js",
-    "static/js/2.093be1b9.chunk.js.map": "/RLFT/static/js/2.093be1b9.chunk.js.map",
-    "static/js/3.a9118ee2.chunk.js": "/RLFT/static/js/3.a9118ee2.chunk.js",
-    "static/js/3.a9118ee2.chunk.js.map": "/RLFT/static/js/3.a9118ee2.chunk.js.map",
-    "index.html": "/RLFT/index.html",
-    "static/css/2.20aa2d7b.chunk.css.map": "/RLFT/static/css/2.20aa2d7b.chunk.css.map",
-    "static/css/main.01f9dc76.chunk.css.map": "/RLFT/static/css/main.01f9dc76.chunk.css.map",
-    "static/js/2.093be1b9.chunk.js.LICENSE.txt": "/RLFT/static/js/2.093be1b9.chunk.js.LICENSE.txt"
+    "main.css": "/brother-bear-online/demo/static/css/main.01f9dc76.chunk.css",
+    "main.js": "/brother-bear-online/demo/static/js/main.0f9413a2.chunk.js",
+    "main.js.map": "/brother-bear-online/demo/static/js/main.0f9413a2.chunk.js.map",
+    "runtime-main.js": "/brother-bear-online/demo/static/js/runtime-main.f61909c5.js",
+    "runtime-main.js.map": "/brother-bear-online/demo/static/js/runtime-main.f61909c5.js.map",
+    "static/css/2.20aa2d7b.chunk.css": "/brother-bear-online/demo/static/css/2.20aa2d7b.chunk.css",
+    "static/js/2.093be1b9.chunk.js": "/brother-bear-online/demo/static/js/2.093be1b9.chunk.js",
+    "static/js/2.093be1b9.chunk.js.map": "/brother-bear-online/demo/static/js/2.093be1b9.chunk.js.map",
+    "static/js/3.a9118ee2.chunk.js": "/brother-bear-online/demo/static/js/3.a9118ee2.chunk.js",
+    "static/js/3.a9118ee2.chunk.js.map": "/brother-bear-online/demo/static/js/3.a9118ee2.chunk.js.map",
+    "index.html": "/brother-bear-online/demo/index.html",
+    "static/css/2.20aa2d7b.chunk.css.map": "/brother-bear-online/demo/static/css/2.20aa2d7b.chunk.css.map",
+    "static/css/main.01f9dc76.chunk.css.map": "/brother-bear-online/demo/static/css/main.01f9dc76.chunk.css.map",
+    "static/js/2.093be1b9.chunk.js.LICENSE.txt": "/brother-bear-online/demo/static/js/2.093be1b9.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.b312d49e.js",
+    "static/js/runtime-main.f61909c5.js",
     "static/css/2.20aa2d7b.chunk.css",
     "static/js/2.093be1b9.chunk.js",
     "static/css/main.01f9dc76.chunk.css",
-    "static/js/main.ac820890.chunk.js"
+    "static/js/main.0f9413a2.chunk.js"
   ]
 }
