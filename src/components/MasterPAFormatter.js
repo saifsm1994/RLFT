@@ -86,8 +86,8 @@ class MasterPAFormatter extends Component {
 
 
     headerManager(inputer) {
-        let headingsRegex = new RegExp("(Exclusion\\sCriteria)|(Required\\sMedical\\sInformation)|(Medical\\sInformation)|(Age\\sRestrictions)|(Prescriber\\sRestrictions)|(Coverage\\sDuration)|(Other\\sCriteria)|(Off[\\-\\s]{0,1}Label\\sUses)|(Products\\sAffected)|(PA\\sCriteria)|(Last\\sUpdated)|(•)|(\\so\\s)", "gmi")
-        let CapsHeadings = new RegExp("\\s{0,1}Indications\\s", "gm");
+        let headingsRegex = new RegExp("(Exclusion[\\s ]Criteria)|(Required[\\s ]Medical[\\s ]Information)|(Medical[\\s ]Information)|(Age[\\s ]Restriction[()s]{0,3})|(Prescriber[\\s ]Restriction[()s]{0,3})|(Coverage[\\s ]Duration)|(Other[\\s ]Criteria)|(Off[\-\\s ]]{0,1}Label[\\s ]Use[()s]{0,3})|(Products[\\s ]Affected)|(PA[\\s ]Criteria)|(Last[\\s ]Updated)|(•)|([\\s ]o[\\s ])|(Covered[\\s ]Use[()s]{0,3})|(Medication[()s]{0,3})", "gmi")
+        let CapsHeadings = new RegExp("[\\s ]{0,1}Indications[\\s ]", "gm");
         let newLine = new RegExp("\\n{1,55}", "gmi");
 
 
