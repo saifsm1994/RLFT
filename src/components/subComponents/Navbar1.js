@@ -32,7 +32,9 @@ const Navbar1 = (props) => {
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">Home</NavbarBrand>
+        <NavbarBrand >
+        {props.Home ? props.Home : "Home"}
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
@@ -49,9 +51,7 @@ const Navbar1 = (props) => {
                 <DropdownItem >
                 {props.HCPC && props.HCPC}
                 </DropdownItem>
-                {/* <DropdownItem  tag={NavItem} to="/#/Lookup">
-               Test
-                </DropdownItem> */}
+
               </DropdownMenu>
             </UncontrolledDropdown>
 
