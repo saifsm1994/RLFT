@@ -1,0 +1,56 @@
+.margin10{
+    margin: 10px;   
+}
+
+.margin10Top{
+    margin-top: 10px;   
+}
+
+.margin1Top{
+    margin-top: 1px;   
+}
+
+.margin2Top{
+    margin-top: 4px;   
+}
+
+.margin10TopLeft{
+    margin-top: 10px;   
+    margin-left: 10px;   
+}
+
+
+.darkResults{
+    background-color: yellow;
+    color: white;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+
+.panel{
+    min-height: 100vh;
+  }
+
+.mainPanel{
+    height: 100%
+  }
+
+.sidePanel{
+    height: 100%
+  } 
+
+.buttonGroup{
+    margin: 5px -5px 5px -5px; 
+    border: solid 1px white;
+}
+
+.resetButton{
+    margin-right: 5px;
+}
+
+.sideButtonsOptions{
+    border: solid 5px white;
+}
