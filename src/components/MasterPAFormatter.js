@@ -125,13 +125,8 @@ class MasterPAFormatter extends Component {
         });
         //END handling the different regex for special headings
 
-        result = result.trim()
-        result2 = result2.trim()
-
-
-
-
-
+        result = result.trim();
+        result2 = result2.trim();
 
         return [result, result2]
     }

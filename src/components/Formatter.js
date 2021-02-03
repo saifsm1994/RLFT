@@ -97,9 +97,9 @@ class Formatter extends Component {
 
         let smallCapsStartingLine = new RegExp("[\\n]{1,99}[\\s]{0,99}([a-z]{0,40}[\\s]|AND|OR|NOT)", "gm");
         let obviousBulletPoints = new RegExp("(•)|([\\s\\n]o[\\s\\n])", "gmi");
-        let letterBulletPoint = new RegExp("((?<!\\([\\sa-z]{2,99})[\\s\\n][a-z]{1,2}[.)][\\s^\\n^:^;])", "gmi");
-        let numberBulletPoint = new RegExp("((?<!\\([\\sa-z]{2,99})[\\s\\n][0-9]{1,2}[.)]([\\s^\\n^:^;]|[A-Za-z]{2}))", "gmi");
-        let RomanBulletPoint = new RegExp("((?<!\\([\\sa-z]{2,99})[\\s\\n][IVX]{1,5}[.)][\\s^\\n^:^;])", "gmi");
+        let letterBulletPoint = new RegExp("((?<!\\([\\sa-z]{2,99})[\\s\\n][a-z]{1,2}[.)][\\s])", "gmi");
+        let numberBulletPoint = new RegExp("((?<!\\([\\sa-z]{2,99})[\\s\\n][0-9]{1,2}[.)]([\\s]|[A-Za-z]{2}))", "gmi");
+        let RomanBulletPoint = new RegExp("((?<!\\([\\sa-z]{2,99})[\\s\\n][IVX]{1,5}[.)][\\s])", "gmi");
         let doubleLine = new RegExp("\\n\\n", "gmi")
 
         result = inputer.replace(smallCapsStartingLine, function (element) {
