@@ -95,15 +95,18 @@ class Formatter extends Component {
         let result;
         let result2;
 
-        let smallCapsStartingLine = new RegExp("[\\n]{1,99}[\\s]{0,99}([a-z]{0,40}[\\s]|AND|OR|NOT)", "gm");
-        let obviousBulletPoints = new RegExp("(•)|([\\s\\n]o[\\s\\n])", "gmi");
+        let smallCapsStartingLine = new RegExp("[\\n]{1,99}[\\s]{0,99}([a-z]{0,40}[\\s,]|AND|OR|NOT)", "gm");
+        let obviousBulletPoints = new RegExp("([•])|([\\s\\n]o[\\s\\n])", "gmi");
         let letterBulletPoint = new RegExp("((?<!\\([\\sa-z]{2,99})[\\s\\n][a-z]{1,2}[.)][\\s])", "gmi");
         let numberBulletPoint = new RegExp("((?<!\\([\\sa-z]{2,99})[\\s\\n][0-9]{1,2}[.)]([\\s]|[A-Za-z]{2}))", "gmi");
         let RomanBulletPoint = new RegExp("((?<!\\([\\sa-z]{2,99})[\\s\\n][IVX]{1,5}[.)][\\s])", "gmi");
         let doubleLine = new RegExp("\\n\\n", "gmi")
+        let commaLine = new RegExp("([\\,][\\s]{0,3}[\\n])", "gmi")
+
+        console.log("inputer called")
 
         result = inputer.replace(smallCapsStartingLine, function (element) {
-            // console.log("smallCapsStartingLine",element)
+            console.log("smallCapsStartingLine",element)
             if (element.match(obviousBulletPoints)) { return element }
             return element.replace("\n", " ")
         })
@@ -151,6 +154,8 @@ class Formatter extends Component {
 
         result = result.replace(doubleLine, "\n")
         result2 = result2.replace(doubleLine, "\n")
+        result = result.replace(commaLine, ", ")
+        result2 = result2.replace(commaLine, ", ")
 
         return [result, result2]
     }
