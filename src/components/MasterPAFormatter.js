@@ -86,7 +86,7 @@ class MasterPAFormatter extends Component {
 
 
     headerManager(inputer) {
-        let headingsRegex = new RegExp("(Exclusion[\\s ]Criteria)|(PA[\\s ]Indication[\\s ]Indicator)|(Required[\\s ]Medical[\\s ]Information)|(Medical[\\s ]Information)|(Age[\\s ]Restriction[()s]{0,3})|(Prescriber[\\s ]Restriction[()s]{0,3})|(Coverage[\\s ]Duration)|(Other[\\s ]Criteria)|(Off[\-\\s ]]{0,1}Label[\\s ]Use[()s]{0,3})|(Products[\\s ]Affected)|(PA[\\s ]Criteria)|(Last[\\s ]Updated)|(•)|([\\s ]o[\\s ])|(Covered[\\s ]Use[()s]{0,3})|(Medication[()s]{0,3})", "gmi")
+        let headingsRegex = new RegExp("(Affected[\\s]Drugs)|(Exclusion[\\s ]Criteria)|(PA[\\s ]Indication[\\s ]Indicator)|(Required[\\s ]Medical[\\s ]Information)|(Medical[\\s ]Information)|(Age[\\s ]Restriction[()s]{0,3})|(Prescriber[\\s ]Restriction[()s]{0,3})|(Coverage[\\s ]Duration)|(Other[\\s ]Criteria)|(Off[\-\\s ]]{0,1}Label[\\s ]Use[()s]{0,3})|(Products[\\s ]Affected)|(PA[\\s ]Criteria)|(Last[\\s ]Updated)|(•)|([\\s ]o[\\s ])|(Covered[\\s ]Use[()s]{0,3})|(Medication[()s]{0,3})", "gmi")
 
         let wrongHeadingsRegex = new RegExp("(accepted[\\s]{0,3}[\\n]Indications)|(approved[\\s]{0,3}[\\n]Indications)|(No[\\s]{0,3}[\\n]Age[\\s ]{0,3}Restriction)|(No[\\s]{0,3}[\\n]Exclusion[\\s ]{0,3}Criteria)", "gmi")
 
