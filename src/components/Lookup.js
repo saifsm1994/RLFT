@@ -107,6 +107,7 @@ class HCPCandFilter extends Component {
         let searchValue = this.state.searchValue ? this.state.searchValue : "([A-CE-Z][0-9]{4})";
         let searchStringFlags = this.state.searchStringFlags ? this.state.searchStringFlags : "ci";
         let searchRegexFlags = this.state.searchRegexFlags ? this.state.searchRegexFlags : "gmi";
+        let nameValue = this.state.name ? this.state.name : "";
 
         if (name === null || name === undefined) { return } else {
             alert("Current search saved as " + name)
@@ -121,7 +122,11 @@ class HCPCandFilter extends Component {
         cookieData[name].searchValue = searchValue;
         cookieData[name].searchStringFlags = searchStringFlags;
         cookieData[name].searchRegexFlags = searchRegexFlags;
-        cookieData[name] = this.state;
+        cookieData[name].name = nameValue;
+        //unsure if this one does anything except eat up storage, replacing.
+        // cookieData[name] = this.state;
+
+        
 
 
         localStorage.setItem('Searches2', JSON.stringify(cookieData));
