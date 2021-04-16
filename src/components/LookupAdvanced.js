@@ -133,7 +133,7 @@ class LookupAdvanced extends Component {
         //unsure if this one does anything except eat up storage, replacing.
         // cookieData[name] = this.state;
 
-        
+
 
 
         localStorage.setItem('Searches2', JSON.stringify(cookieData));
@@ -184,8 +184,8 @@ class LookupAdvanced extends Component {
                     })
                 }
             });
-        // }
-    }
+            // }
+        }
 
     }
 
@@ -229,7 +229,7 @@ class LookupAdvanced extends Component {
         //     this.setState({ searchStringFlags: searchStringFlags + val });
         // }
 
-        console.log("new value is now " + this.state.searchStringFlags)
+        // console.log("new value is now " + this.state.searchStringFlags)
         this.saveStateToCookie()
     }
 
@@ -243,16 +243,17 @@ class LookupAdvanced extends Component {
             this.setState({ searchRegexFlags: searchRegexFlags + val });
         }
 
-        console.log("new value is now " + this.state.searchRegexFlags)
+        // console.log("new value is now " + this.state.searchRegexFlags)
         this.saveStateToCookie()
 
     }
+
 
     updateSearchType(val) {
 
         this.setState({ searchType: val });
 
-        console.log("new value is now " + this.state.searchType)
+        // console.log("new value is now " + this.state.searchType)
         this.saveStateToCookie()
 
     }
@@ -262,7 +263,9 @@ class LookupAdvanced extends Component {
         let NumRegex = new RegExp("\\d{4}", "gmi");
         let LetterRegex = new RegExp("[A-CE-Z]", "gmi");
         let HCPCRegexRange = new RegExp("([A-CE-Z][0-9]{4}[\\t]{0,3}[-—]{0,2}(through){0,1}(to){0,1}[\\t]{0,3}[A-CE-Z][0-9]{4})", "gmi");
-        console.log("range matches include", input.match(HCPCRegexRange))
+        // console.log("range matches include", input.match(HCPCRegexRange))
+
+
 
         let result = input.replace(HCPCRegexRange, function (element) {
 
@@ -295,8 +298,12 @@ class LookupAdvanced extends Component {
         let searchType = this.state.searchType;
         let caseSensitive;
 
+        // console.log("setSearchValue, step 0 - input is ", input)
+
 
         input = this.hcpcManager(input);
+
+        // console.log("setSearchValue, step 1 passed - input is ", input)
 
         if (searchRegexFlags.indexOf("i") === -1) { // if case sensitive true  - no i flag
             caseSensitive = true
@@ -307,11 +314,20 @@ class LookupAdvanced extends Component {
         //if the regex option is chosen search as is - assign to array for the forEach loop below
         //if the list option is chosen split into an array and regex search each element
         if (searchType === "string") {
+            if (searchRegexFlags.indexOf("g") === -1) {
+                this.setState({ searchRegexFlags: searchRegexFlags + "g" });
+                searchRegexFlags = searchRegexFlags  + "g"
+            }
+            if (searchRegexFlags.indexOf("m") === -1) {
+                this.setState({ searchRegexFlags: searchRegexFlags + "m" });
+                searchRegexFlags = searchRegexFlags  + "m"
+            }
+
             search = search.split(",");
             searchEnd = searchEnd.split(",");
             search = Array.from(new Set(search));
             searchEnd = Array.from(new Set(searchEnd));
-            search = search.map(element => "(" + element + "[a-z\\:\\,\\.\\-\\'•=\\/\\s\\n0-9\\\\ \\\"]{0,9999})")
+            search = search.map(element => "(" + element + "[a-zA-Z\\:\\,\\.\\-\\'•=\\/\\s\\n0-9\\\\ \\\"]{0,9999})")
             searchEnd = searchEnd.map(element => "(" + element + ")")
 
         } else {
@@ -319,34 +335,47 @@ class LookupAdvanced extends Component {
         }
         let output = [];
         let matcher2 = [];
+        // console.log("setSearchValue, step 2 passed - input is" ,input)
+
 
         search.forEach(element => {
-            // update this to keep a track of the specific order of matches
-            let match;
-            let matcher = []; // input.match(new RegExp(element, searchRegexFlags))
-            let test = new RegExp(element, searchRegexFlags);
-            while ((match = test.exec(input)) != null) {
-                matcher.push([match[0], parseInt(match.index)])
-
-            }
-
-            //if no matches
-            if (matcher === null) {
+            if (element == null) {
+                console.log("null search",element)
                 this.setState({ output: "No Matches" });
                 this.saveStateToCookie()
                 return
+            } else {
+                // console.log("not null search",element)
+
+                // update this to keep a track of the specific order of matches
+                let match;
+                let matcher = []; // input.match(new RegExp(element, searchRegexFlags))
+                let test = new RegExp(element, searchRegexFlags);
+                // console.log("not null regex",test)
+                let i = 0
+                while ((match = test.exec(input)) != null && i < 500) {
+                    matcher.push([match[0], parseInt(match.index)])
+                    i++
+                }
+
+                //if no matches
+                if (matcher === null) {
+                    this.setState({ output: "No Matches" });
+                    this.saveStateToCookie()
+                    return
+                }
+                matcher2 = [...matcher2, ...matcher]
             }
-            matcher2 = [...matcher2, ...matcher]
         }
         )
 
-        console.log("matcher2", matcher2)
+        // console.log("setSearchValue, step 3 passed", " matcher2 == ", matcher2)
 
         if (matcher2.length >= 1 && Array.isArray(matcher2)) {
             // matcher = matcher.split(",") 
             matcher2 = matcher2.sort(([a, b], [c, d]) => b - d);
             matcher2.forEach(element => {
-                console.log("matcher32", element)
+                // console.log("matcher32", element)
                 let test2 = new RegExp(searchEnd, searchRegexFlags);
                 element[0] = element[0].split(test2)[0]
                 output = [...output, element[0]]
@@ -356,7 +385,7 @@ class LookupAdvanced extends Component {
 
         }
 
-
+        // console.log("step 4")
 
         let noCountOutput = output.join("\n\n\n\n");
         let csvOutput = output.join(",");
@@ -368,7 +397,7 @@ class LookupAdvanced extends Component {
 
         output.forEach(element => {
             if (!caseSensitive) {
-                console.log("element,", element)
+                // console.log("element,", element)
                 let lowerCaseUniqueOutput = uniqueOutput.map(element => element.toLowerCase())
                 let pos = lowerCaseUniqueOutput.indexOf(element.toLowerCase());
                 if (pos === -1) {
@@ -473,19 +502,21 @@ class LookupAdvanced extends Component {
                                 value={this.state.searchValueEnd}
                                 rows="3"
                                 onChange={this.updateSearchValueEnd}
-                                // buttonOnClick={this.setSearchValueEnd}
-                                // buttonText="Search"
+                            // buttonOnClick={this.setSearchValueEnd}
+                            // buttonText="Search"
                             />
 
                             <Card1
                                 text={<div><p>A variant of the lookup tool, this page takes 2 regexes or lists of strings and returns any match for the first regex and truncates it where the second regex starts.
                                     </p><ul>
-                                        <p style={{"fontWeight":"900"}}>Press Reset Page and click search for an example</p>
+                                        <p style={{ "fontWeight": "900" }}>Press Reset Page and click search for an example</p>
                                         <li>The first regex matches the keyword 'Start' and 999 characters after it</li>
                                         <li>The second regex matches the keyword 'End'</li>
                                         <li>As a result we get the first 999 characters after Start until End cuts it off early</li>
                                         <li>With the list option these would be Start and End respectively - the list option is also hardcoded to find 9999 characters</li>
-                                        
+
+                                        <li>Note: Some features are disabled in list mode</li>
+
 
                                     </ul></div>}
 
