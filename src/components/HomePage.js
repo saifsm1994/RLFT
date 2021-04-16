@@ -16,9 +16,9 @@ class HomePage extends Component {
                 <Row>
 
                     {/* <Col lg="9" xl="9" md="9" sm="9"> */}
-                        <Jumbotron className="mainPanel panel">
-                        <Row>
-                            <Col  lg="4" xl="4" md="4" sm="12">
+                    <Jumbotron className="mainPanel panel">
+                        <Row style={{"marginBottom": "10px"}}>
+                            <Col lg="4" xl="4" md="4" sm="12" >
 
                                 <Card1
                                     heading="Go to Lookup Tool"
@@ -28,7 +28,17 @@ class HomePage extends Component {
                                 />
                             </Col>
 
-                            <Col  lg="4" xl="4" md="4" sm="12">
+                            <Col lg="4" xl="4" md="4" sm="12">
+
+                                <Card1
+                                    heading="Go to ADVANCED Lookup Tool (End)"
+                                    text=" An experimental page which finds n characters after a match up until an ending keyword - experimental - for advanced users only"
+                                    linkName="Lookup Tool - Advanced"
+                                    link={this.props.lookupLinkAdvanced}
+                                />
+                            </Col>
+
+                            <Col lg="4" xl="4" md="4" sm="12">
 
                                 <Card1
                                     heading="Go to HCPC Tool"
@@ -38,7 +48,9 @@ class HomePage extends Component {
                                 />
                             </Col>
 
-                            <Col  lg="4" xl="4" md="4" sm="12">
+                            </Row><Row>
+
+                            <Col lg="4" xl="4" md="4" sm="12">
 
                                 <Card1
                                     heading="Go to Gsheet Tool"
@@ -48,7 +60,7 @@ class HomePage extends Component {
                                 />
                             </Col>
 
-                            <Col  lg="4" xl="4" md="4" sm="12">
+                            <Col lg="4" xl="4" md="4" sm="12">
 
                                 <Card1
                                     heading="Go to Master PA Formatter"
@@ -58,7 +70,7 @@ class HomePage extends Component {
                                 />
                             </Col>
 
-                            <Col  lg="4" xl="4" md="4" sm="12">
+                            <Col lg="4" xl="4" md="4" sm="12">
 
                                 <Card1
                                     heading="Go to Policy Formatter"
@@ -67,8 +79,8 @@ class HomePage extends Component {
                                     link={this.props.Policies}
                                 />
                             </Col>
-                            </Row>
-                        </Jumbotron>
+                        </Row>
+                    </Jumbotron>
                     {/* </Col> */}
                     {/* <Col lg="3" xl="3" md="3" sm="3">
                         <Jumbotron className="sidePanel panel">

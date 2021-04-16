@@ -44,12 +44,16 @@ const Navbar1 = (props) => {
                 Lookup Tools
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem
-                style={{border: "black 1px solid"}}>
+                <DropdownItem>
                 {props.lookupLink && props.lookupLink}
                 </DropdownItem>
+
                 <DropdownItem >
                 {props.HCPC && props.HCPC}
+                </DropdownItem>
+
+                <DropdownItem >
+                {props.lookupLinkAdvanced && props.lookupLinkAdvanced}
                 </DropdownItem>
 
               </DropdownMenu>

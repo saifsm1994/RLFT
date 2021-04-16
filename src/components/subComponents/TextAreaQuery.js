@@ -22,11 +22,12 @@ class TextAreaQuery extends Component {
                                 />
                             </Col>
                             <Col lg="1" xl="1" md="1" sm="1">
-                                <Button
+                               <Button
                                     bsSize="sm"
                                     name={this.props.buttonName}
                                     onClick={this.props.buttonOnClick}
                                     color="success"
+                                    hidden={ !this.props.buttonText }
                                 >
                                     {this.props.buttonText}
                                 </Button>

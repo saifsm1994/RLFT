@@ -18,6 +18,7 @@ import {
 } from "react-router-dom";
 import HomePage from './components/HomePage';
 import Lookup from './components/Lookup';
+import LookupAdvanced from './components/LookupAdvanced';
 import HCPC from './components/HCPC';
 import Formatter from './components/Formatter';
 import MasterPAFormatter from './components/MasterPAFormatter';
@@ -30,6 +31,7 @@ ReactDOM.render(
       <Navbar1 
       Home={<NavLink to="/" style={{color: "black",textDecoration: 'none'}}>Home</NavLink>}
       lookupLink={<NavLink to="/Lookup">Lookup</NavLink>}
+      lookupLinkAdvanced={<NavLink to="/LookupAdvanced">Lookup Advanced</NavLink>}
       HCPC={<NavLink to="/HCPC">HCPC Range Expander</NavLink>}
       Policies={<NavLink to="/Formatter">Policies</NavLink>}
       GSheet={<NavLink to="/GSheetFormatter">GSheet</NavLink>}
@@ -39,6 +41,8 @@ ReactDOM.render(
           <Route exact path="/" render={(props) => <HomePage 
 
           lookupLink={<NavLink style={{color:"white"}} to="/Lookup">Lookup</NavLink>}
+          
+          lookupLinkAdvanced={<NavLink  style={{color:"white"}} to="/LookupAdvanced">Lookup Advanced</NavLink>}
 
           HCPC={<NavLink style={{color:"white"}} to="/HCPC">HCPC Range Expander</NavLink>}
 
@@ -47,9 +51,13 @@ ReactDOM.render(
           GSheet={<NavLink  style={{color:"white"}} to="/GSheetFormatter">GSheet</NavLink>}
 
           MasterPA={<NavLink  style={{color:"white"}} to="/MasterPAFormatter">MasterPA</NavLink>}
+          
+
+          
 
           />} />
           <Route exact path="/Lookup" render={(props) => <Lookup />} />
+          <Route exact path="/LookupAdvanced" render={(props) => <LookupAdvanced />} />
           <Route exact path="/HCPC" render={(props) => <HCPC />} />
           <Route exact path="/Formatter" render={(props) => <Formatter />} />
           <Route exact path="/MasterPAFormatter" render={(props) => <MasterPAFormatter />} />
