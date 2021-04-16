@@ -296,10 +296,12 @@ class HCPCandFilter extends Component {
             let match;
             let matcher = []; // input.match(new RegExp(element, searchRegexFlags))
             let test = new RegExp(element, searchRegexFlags);
-            while ((match = test.exec(input)) != null) {
+            let i = 0
+            while ((match = test.exec(input)) != null && i< 19999) {
                 matcher.push([match[0], parseInt(match.index)])
-
+                i++
             }
+
 
             //if no matches
             if (matcher === null) {
