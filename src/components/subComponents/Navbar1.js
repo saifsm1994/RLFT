@@ -53,7 +53,16 @@ const Navbar1 = (props) => {
                 </DropdownItem>
 
                 <DropdownItem >
+                {props.LookupLinkHighlight && props.LookupLinkHighlight}
+                </DropdownItem>
+
+                
+                <DropdownItem >
                 {props.lookupLinkAdvanced && props.lookupLinkAdvanced}
+                </DropdownItem>
+
+                <DropdownItem >
+                {props.lookupLinkReplace && props.lookupLinkReplace}
                 </DropdownItem>
 
               </DropdownMenu>

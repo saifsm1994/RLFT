@@ -6,16 +6,17 @@ import TextArea from './subComponents/TextArea';
 import TextAreaQuery from './subComponents/TextAreaQuery';
 import Card1 from './subComponents/Card1';
 import TextAreaQuery2 from './subComponents/TextAreaQuery2';
-import { Helmet } from "react-helmet";
 import TextAreaJodit from './subComponents/TextAreaJodit';
+import { Helmet } from "react-helmet";
 
 
-class LookupAdvanced extends Component {
+
+class LookupHighlight extends Component {
     constructor(props) {
         super(props);
         this.updateInputValue = this.updateInputValue.bind(this);
         this.updateSearchValue = this.updateSearchValue.bind(this);
-        this.updateSearchValueEnd = this.updateSearchValueEnd.bind(this);
+        this.updatesearchValueHighlight = this.updatesearchValueHighlight.bind(this);
         this.setName = this.setName.bind(this);
         this.updatesearchStringFlagsValue = this.updatesearchStringFlagsValue.bind(this);
         this.updateRegexFlagsValue = this.updateRegexFlagsValue.bind(this);
@@ -30,14 +31,14 @@ class LookupAdvanced extends Component {
 
 
         this.state = {
-            input: "Start placeholder text here End more placeholder text",
+            input: "START Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has END been the industry's ",
             output: "Output Placeholder",
             noCountOutput: "Output Placeholder",
             csvOutput: "Output Placeholder",
             csvDedupeOutput: "Output Placeholder",
             searchType: "regex",
-            searchValue: "(start[a-z\\s\\n0-9]{0,999})",
-            searchValueEnd: "(end)",
+            searchValue: "(start[a-z\\s\\.\\'\\n0-9]{0,999})",
+            searchValueHighlight: "(start|end)",
             searchStringFlags: "c",
             searchRegexFlags: "gmi",
             Searches: {}
@@ -46,7 +47,7 @@ class LookupAdvanced extends Component {
     }
 
     resetAll() {
-        localStorage.removeItem("cookie4")
+        localStorage.removeItem("cookie3")
 
 
         this.setState({
@@ -56,8 +57,8 @@ class LookupAdvanced extends Component {
             csvOutput: "Output Placeholder",
             csvDedupeOutput: "Output Placeholder",
             searchType: "regex",
-            searchValue: "(start[a-z\\s\\n0-9]{0,999})",
-            searchValueEnd: "(end)",
+            searchValue: "(start[a-z\\s\\.\\'\\n0-9]{0,999})",
+            searchValueHighlight: "(start|end)",
             searchStringFlags: "c",
             searchRegexFlags: "gmi",
             name: ""
@@ -81,18 +82,18 @@ class LookupAdvanced extends Component {
             // csvDedupeOutput:  "Output Placeholder",
             let searchType = this.state.searchType ? this.state.searchType : "regex";
             let searchValue = this.state.searchValue ? this.state.searchValue : "(start[a-z\\s\\n0-9]{0,999})";
-            let searchValueEnd = this.state.searchValueEnd ? this.state.searchValueEnd : "(end)";
+            let searchValueHighlight = this.state.searchValueHighlight ? this.state.searchValueHighlight : "(end)";
             let searchStringFlags = this.state.searchStringFlags ? this.state.searchStringFlags : "ci";
             let searchRegexFlags = this.state.searchRegexFlags ? this.state.searchRegexFlags : "gmi";
 
             cookieData.searchType = searchType;
             cookieData.searchValue = searchValue;
-            cookieData.searchValueEnd = searchValueEnd;
+            cookieData.searchValueHighlight = searchValueHighlight;
             cookieData.searchStringFlags = searchStringFlags;
             cookieData.searchRegexFlags = searchRegexFlags;
 
 
-            localStorage.setItem('cookie4', JSON.stringify(cookieData));
+            localStorage.setItem('cookie3', JSON.stringify(cookieData));
         }, num);
 
     }
@@ -112,7 +113,7 @@ class LookupAdvanced extends Component {
         // csvDedupeOutput:  "Output Placeholder",
         let searchType = this.state.searchType ? this.state.searchType : "regex";
         let searchValue = this.state.searchValue ? this.state.searchValue : "(start[a-z\\s\\n0-9]{0,999})";
-        let searchValueEnd = this.state.searchValueEnd ? this.state.searchValueEnd : "(end)";
+        let searchValueHighlight = this.state.searchValueHighlight ? this.state.searchValueHighlight : "(end)";
         let searchStringFlags = this.state.searchStringFlags ? this.state.searchStringFlags : "ci";
         let searchRegexFlags = this.state.searchRegexFlags ? this.state.searchRegexFlags : "gmi";
         let nameValue = this.state.name ? this.state.name : "";
@@ -121,30 +122,30 @@ class LookupAdvanced extends Component {
             alert("Current search saved as " + name)
         }
 
-        if (localStorage.getItem('Searches4')) {
-            cookieData = JSON.parse(localStorage.getItem('Searches4'));
+        if (localStorage.getItem('Searches2')) {
+            cookieData = JSON.parse(localStorage.getItem('Searches2'));
         }
 
         cookieData[name] = {};
         cookieData[name].searchType = searchType;
         cookieData[name].searchValue = searchValue;
-        cookieData[name].searchValueEnd = searchValueEnd;
+        cookieData[name].searchValueHighlight = searchValueHighlight;
         cookieData[name].searchStringFlags = searchStringFlags;
         cookieData[name].searchRegexFlags = searchRegexFlags;
         cookieData[name].name = nameValue;
         //unsure if this one does anything except eat up storage, replacing.
         // cookieData[name] = this.state;
 
+        // console.log('saving cookie -- ', cookieData)
 
 
-
-        localStorage.setItem('Searches4', JSON.stringify(cookieData));
+        localStorage.setItem('Searches2', JSON.stringify(cookieData));
         this.setState({ Searches: cookieData });
 
         if (val) {
             if (cookieData[this.state.name]) {
                 delete cookieData[this.state.name];
-                localStorage.setItem('Searches4', JSON.stringify(cookieData));
+                localStorage.setItem('Searches2', JSON.stringify(cookieData));
                 this.setState({ Searches: cookieData })
             }
         }
@@ -152,8 +153,8 @@ class LookupAdvanced extends Component {
 
 
     pullStateFromCookie() {
-        if (localStorage.getItem('cookie4')) {
-            let fetchedCookie = JSON.parse(localStorage.getItem('cookie4'));
+        if (localStorage.getItem('cookie3')) {
+            let fetchedCookie = JSON.parse(localStorage.getItem('cookie3'));
             Object.keys(fetchedCookie).forEach(element => {
                 if (element === "name") { } else {
                     this.setState({
@@ -164,10 +165,10 @@ class LookupAdvanced extends Component {
 
         }
 
-        if (localStorage.getItem('Searches4')) {
-            let fetchedcookie4 = JSON.parse(localStorage.getItem('Searches4'));
+        if (localStorage.getItem('Searches2')) {
+            let fetchedcookie3 = JSON.parse(localStorage.getItem('Searches2'));
             this.setState({
-                Searches: fetchedcookie4
+                Searches: fetchedcookie3
             })
         }
     }
@@ -180,7 +181,8 @@ class LookupAdvanced extends Component {
 
             // }else{
             Object.keys(fetchedSearch).forEach(element => {
-                if (element !== "Searches" && element !== "input" && element !== "output" && element !== "noCountOutput" && element !== "csvOutput" && element !== "csvDedupeOutput") {
+                console.log("fetchedKey for ", element)
+                if (element !== "Searches" && element !== "input" && element !== "output" && element !== "noCountOutput" && element !== "csvOutput" && element !== "csvDedupeOutput") {//searchValueHighlight
                     this.setState({
                         [element]: fetchedSearch[element]
                     })
@@ -206,9 +208,9 @@ class LookupAdvanced extends Component {
         this.saveStateToCookie()
     }
 
-    updateSearchValueEnd(e) {
+    updatesearchValueHighlight(e) {
         e.preventDefault();
-        this.setState({ searchValueEnd: e.target.value });
+        this.setState({ searchValueHighlight: e.target.value });
         this.saveStateToCookie()
     }
 
@@ -296,7 +298,7 @@ class LookupAdvanced extends Component {
         let input = this.state.input;
         let searchRegexFlags = this.state.searchRegexFlags;
         let search = this.state.searchValue;
-        let searchEnd = this.state.searchValueEnd;
+        let searchHighlight = this.state.searchValueHighlight;
         let searchType = this.state.searchType;
         let caseSensitive;
 
@@ -326,15 +328,15 @@ class LookupAdvanced extends Component {
             }
 
             search = search.split(",");
-            searchEnd = searchEnd.split(",");
+            searchHighlight = searchHighlight.split(",");
             search = Array.from(new Set(search));
-            searchEnd = Array.from(new Set(searchEnd));
+            searchHighlight = Array.from(new Set(searchHighlight));
             search = search.map(element => "(" + element + "[a-zA-Z\\:\\,\\.\\-\\'•=\\/\\s\\n0-9\\\\ \\\"]{0,9999})")
-            searchEnd = searchEnd.map(element => "(" + element + ")")
+            searchHighlight = searchHighlight.map(element => "(" + element + ")")
 
         } else {
             search = [search]
-            searchEnd = [searchEnd]
+            searchHighlight = [searchHighlight]
         }
         let output = [];
         let matcher2 = [];
@@ -354,11 +356,14 @@ class LookupAdvanced extends Component {
                 let match;
                 let matcher = []; // input.match(new RegExp(element, searchRegexFlags))
                 let test = new RegExp(element, searchRegexFlags);
+                console.log(test + " = test ")
+
                 // console.log("not null regex",test)
                 let i = 0
                 while ((match = test.exec(input)) != null && i < 500) {
-                    console.log("match",match)
                     matcher.push([match[0], parseInt(match.index)])
+                    console.log(match[0] + " = match[0] ")
+
                     i++
                 }
 
@@ -380,10 +385,28 @@ class LookupAdvanced extends Component {
             matcher2 = matcher2.sort(([a, b], [c, d]) => b - d);
             matcher2.forEach(element => {
                 // console.log("matcher32", element)
-                if (Array.isArray(searchEnd)) {
-                    searchEnd.forEach(term => {
+                if (Array.isArray(searchHighlight)) {
+                    // console.log(searchHighlight + " = searchHighlight")
+
+                    searchHighlight.forEach(term => {
                         let test2 = new RegExp(term, searchRegexFlags);
-                        element[0] = element[0].split(test2)[0]
+                        // console.log(test2 + " = test2")
+                        console.log(element[0] + " = element[0] ")
+
+                        let match = element[0].match(test2)
+                        // console.log(match + " = match")
+                        if (match == null) {
+                            // console.log(match + " = nullMatch")
+
+                        } else {
+                            match.forEach(subMatch => {
+                                // console.log(subMatch + " = submatch")
+
+                                let newMatch = "<strong>" + subMatch + "</strong>"
+                                element[0] = element[0].replaceAll(subMatch, newMatch)
+                            });
+                        }
+
                     });
                     output = [...output, element[0]]
                 }
@@ -395,7 +418,7 @@ class LookupAdvanced extends Component {
 
         // console.log("step 4")
 
-        let noCountOutput = output.join("<br><br>");
+        let noCountOutput = output.join("<br><br><br>");
         let csvOutput = output.join(",");
 
         let uniqueOutput = [];
@@ -436,7 +459,7 @@ class LookupAdvanced extends Component {
 
 
         this.setState({
-            output: countOutput.join("\n\n"),
+            output: countOutput.join("\n\n\n"),
             noCountOutput: noCountOutput,
             csvOutput: csvOutput,
             csvDedupeOutput: csvDedupeOutput.join(",")
@@ -451,7 +474,7 @@ class LookupAdvanced extends Component {
             <Container >
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>Slicing lookup</title>
+                    <title>Highlight</title>
                 </Helmet>
                 <Row>
 
@@ -480,18 +503,24 @@ class LookupAdvanced extends Component {
                                         name="Output"
                                         value={this.state.output}
                                         rows="18"
+                                        styler={{"fontSize":"10px"}}
+
                                     />}
 
                                     {this.state.searchStringFlags.indexOf("s") !== -1 && <TextArea
                                         name="Output"
                                         value={this.state.csvDedupeOutput}
                                         rows="18"
+                                        styler={{"fontSize":"10px"}}
+
                                     />}
 
                                     {this.state.searchStringFlags.indexOf("h") !== -1 && <TextArea
                                         name="Output"
                                         value={this.state.csvOutput}
                                         rows="18"
+                                        fontSize="10px"
+
                                     />}
 
 
@@ -512,22 +541,21 @@ class LookupAdvanced extends Component {
                             />
 
                             <TextAreaQuery
-                                name="Search String End"
-                                value={this.state.searchValueEnd}
+                                name="Search String to Hightlight"
+                                value={this.state.searchValueHighlight}
                                 rows="3"
-                                onChange={this.updateSearchValueEnd}
-                            // buttonOnClick={this.setSearchValueEnd}
+                                onChange={this.updatesearchValueHighlight}
+                            // buttonOnClick={this.setsearchValueHighlight}
                             // buttonText="Search"
                             />
 
                             <Card1
-                                text={<div><p>A variant of the lookup tool, this page takes 2 regexes or lists of strings and returns any match for the first regex and truncates it where the second regex starts.
+                                text={<div><p>A variant of the lookup tool, this page takes 2 regexes or lists of strings and returns any match for the first regex bolds anything that matches the second regex .
                                     </p><ul>
                                         <p style={{ "fontWeight": "900" }}>Press Reset Page and click search for an example</p>
                                         <li>The first regex matches the keyword 'Start' and 999 characters after it</li>
                                         <li>The second regex matches the keyword 'End'</li>
-                                        <li>As a result we get the first 999 characters after Start until End cuts it off early</li>
-                                        <li>With the list option these would be Start and End respectively - the list option is also hardcoded to find 9999 characters</li>
+                                        <li>As a result we get the first 999 characters after Start with every mention of 'End' being bold</li>
 
                                         <li>Note: Some features are disabled in list mode</li>
 
@@ -543,7 +571,7 @@ class LookupAdvanced extends Component {
                     <Col lg="3" xl="3" md="3" sm="12">
                         <Jumbotron className="sidePanel panel">
                             <Col lg="12" xl="12" md="12" sm="12">
-                                <h5>Slicing Lookup (Advanced)</h5>
+                                <h5>Lookup Highlight</h5>
                             </Col>
                             <ButtonGroup size="sm" className="buttonGroup">
                                 <Button
@@ -640,5 +668,5 @@ class LookupAdvanced extends Component {
 }
 
 
-export default withRouter(LookupAdvanced)
+export default withRouter(LookupHighlight)
 

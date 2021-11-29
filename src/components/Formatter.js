@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 import './Universal.css';
 import TextArea from './subComponents/TextArea';
 import Card1 from './subComponents/Card1';
+import { Helmet } from "react-helmet";
 
 
 class Formatter extends Component {
@@ -177,6 +178,10 @@ class Formatter extends Component {
     render() {
         return (
             <Container >
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>Formatter</title>
+                </Helmet>
                 <Row>
 
 

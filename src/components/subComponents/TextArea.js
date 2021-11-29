@@ -15,7 +15,7 @@ class TextArea extends Component {
                     rows={this.props.rows} 
                     value={this.props.value} 
                     onChange={this.props.onChange}
-                    style={this.props.styler}
+                    style={{"fontSize": this.props.fontSize || "15px"}}
                     />
                 </FormGroup>
             </div>

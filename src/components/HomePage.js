@@ -17,7 +17,7 @@ class HomePage extends Component {
 
                     {/* <Col lg="9" xl="9" md="9" sm="9"> */}
                     <Jumbotron className="mainPanel panel">
-                        <Row style={{"marginBottom": "10px"}}>
+                        <Row style={{ "marginBottom": "10px" }}>
                             <Col lg="4" xl="4" md="4" sm="12" >
 
                                 <Card1
@@ -38,6 +38,8 @@ class HomePage extends Component {
                                 />
                             </Col>
 
+
+
                             <Col lg="4" xl="4" md="4" sm="12">
 
                                 <Card1
@@ -48,7 +50,7 @@ class HomePage extends Component {
                                 />
                             </Col>
 
-                            </Row><Row>
+                        </Row><Row>
 
                             <Col lg="4" xl="4" md="4" sm="12">
 
@@ -77,6 +79,19 @@ class HomePage extends Component {
                                     text="Experimental Tool which removes extra line breaks from Policy Coverage Criteria, can also add indents"
                                     linkName="Policy Formatter"
                                     link={this.props.Policies}
+                                />
+                            </Col>
+                        </Row>
+
+                    <Row></Row>
+                        <Row>
+                            <Col lg="4" xl="4" md="4" sm="12">
+
+                                <Card1
+                                    heading="Go to Regex Lookup and Replace Tool"
+                                    text=" An experimental page which finds and replaces text via regex"
+                                    linkName="Lookup Tool - Replace"
+                                    link={this.props.lookupLinkReplace}
                                 />
                             </Col>
                         </Row>

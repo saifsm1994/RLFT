@@ -6,6 +6,8 @@ import TextArea from './subComponents/TextArea';
 import TextAreaQuery from './subComponents/TextAreaQuery';
 import Card1 from './subComponents/Card1';
 import TextAreaQuery2 from './subComponents/TextAreaQuery2';
+import {Helmet} from "react-helmet";
+
 
 
 class HCPCandFilter extends Component {
@@ -379,6 +381,10 @@ class HCPCandFilter extends Component {
     render() {
         return (
             <Container >
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>HCPC</title>
+                </Helmet>
                 <Row>
 
                     <Col lg="9" xl="9" md="9" sm="12">
@@ -388,7 +394,7 @@ class HCPCandFilter extends Component {
                                     <TextArea
                                         name="Input"
                                         value={this.state.input}
-                                        rows="12"
+                                        rows="18"
                                         onChange={this.updateInputValue}
 
                                     />
@@ -397,25 +403,25 @@ class HCPCandFilter extends Component {
                                     {this.state.searchStringFlags.indexOf("c") !== -1 && <TextArea
                                         name="Output"
                                         value={this.state.noCountOutput}
-                                        rows="12"
+                                        rows="18"
                                     />}
 
                                     {this.state.searchStringFlags.indexOf("a") !== -1 && <TextArea
                                         name="Output"
                                         value={this.state.output}
-                                        rows="12"
+                                        rows="18"
                                     />}
 
                                     {this.state.searchStringFlags.indexOf("s") !== -1 && <TextArea
                                         name="Output"
                                         value={this.state.csvDedupeOutput}
-                                        rows="12"
+                                        rows="18"
                                     />}
 
                                     {this.state.searchStringFlags.indexOf("h") !== -1 && <TextArea
                                         name="Output"
                                         value={this.state.csvOutput}
-                                        rows="12"
+                                        rows="18"
                                     />}
 
 

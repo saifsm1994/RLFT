@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Col, Row, FormGroup, Form, Label, Input } from 'reactstrap';
+import { Button, Col, Row, FormGroup, Form, Label, Input,CardText } from 'reactstrap';
 
 
 class TextAreaQuery extends Component {

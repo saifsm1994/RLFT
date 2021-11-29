@@ -6,6 +6,7 @@ import TextArea from './subComponents/TextArea';
 import TextAreaQuery from './subComponents/TextAreaQuery';
 import Card1 from './subComponents/Card1';
 import TextAreaQuery2 from './subComponents/TextAreaQuery2';
+import {Helmet} from "react-helmet";
 
 
 class HCPCandFilter extends Component {
@@ -113,8 +114,8 @@ class HCPCandFilter extends Component {
             alert("Current search saved as " + name)
         }
 
-        if (localStorage.getItem('Searches2')) {
-            cookieData = JSON.parse(localStorage.getItem('Searches2'));
+        if (localStorage.getItem('searches5')) {
+            cookieData = JSON.parse(localStorage.getItem('searches5'));
         }
 
         cookieData[name] = {};
@@ -126,16 +127,16 @@ class HCPCandFilter extends Component {
         //unsure if this one does anything except eat up storage, replacing.
         // cookieData[name] = this.state;
 
-        
 
 
-        localStorage.setItem('Searches2', JSON.stringify(cookieData));
+
+        localStorage.setItem('searches5', JSON.stringify(cookieData));
         this.setState({ Searches: cookieData });
 
         if (val) {
             if (cookieData[this.state.name]) {
                 delete cookieData[this.state.name];
-                localStorage.setItem('Searches2', JSON.stringify(cookieData));
+                localStorage.setItem('searches5', JSON.stringify(cookieData));
                 this.setState({ Searches: cookieData })
             }
         }
@@ -155,8 +156,8 @@ class HCPCandFilter extends Component {
 
         }
 
-        if (localStorage.getItem('Searches2')) {
-            let fetchedCookie2 = JSON.parse(localStorage.getItem('Searches2'));
+        if (localStorage.getItem('searches5')) {
+            let fetchedCookie2 = JSON.parse(localStorage.getItem('searches5'));
             this.setState({
                 Searches: fetchedCookie2
             })
@@ -302,7 +303,7 @@ class HCPCandFilter extends Component {
             let matcher = []; // input.match(new RegExp(element, searchRegexFlags))
             let test = new RegExp(element, searchRegexFlags);
             let i = 0
-            while ((match = test.exec(input)) != null && i< 19999) {
+            while ((match = test.exec(input)) != null && i < 19999) {
                 matcher.push([match[0], parseInt(match.index)])
                 i++
             }
@@ -383,6 +384,10 @@ class HCPCandFilter extends Component {
     render() {
         return (
             <Container >
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>Lookup</title>
+                </Helmet>
                 <Row>
 
                     <Col lg="9" xl="9" md="9" sm="12">
@@ -392,7 +397,7 @@ class HCPCandFilter extends Component {
                                     <TextArea
                                         name="Input"
                                         value={this.state.input}
-                                        rows="12"
+                                        rows="18"
                                         onChange={this.updateInputValue}
 
                                     />
@@ -401,25 +406,25 @@ class HCPCandFilter extends Component {
                                     {this.state.searchStringFlags.indexOf("c") !== -1 && <TextArea
                                         name="Output"
                                         value={this.state.noCountOutput}
-                                        rows="12"
+                                        rows="18"
                                     />}
 
                                     {this.state.searchStringFlags.indexOf("a") !== -1 && <TextArea
                                         name="Output"
                                         value={this.state.output}
-                                        rows="12"
+                                        rows="18"
                                     />}
 
                                     {this.state.searchStringFlags.indexOf("s") !== -1 && <TextArea
                                         name="Output"
                                         value={this.state.csvDedupeOutput}
-                                        rows="12"
+                                        rows="18"
                                     />}
 
                                     {this.state.searchStringFlags.indexOf("h") !== -1 && <TextArea
                                         name="Output"
                                         value={this.state.csvOutput}
-                                        rows="12"
+                                        rows="18"
                                     />}
 
 

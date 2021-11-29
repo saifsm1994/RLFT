@@ -10,12 +10,12 @@ import { Helmet } from "react-helmet";
 import TextAreaJodit from './subComponents/TextAreaJodit';
 
 
-class LookupAdvanced extends Component {
+class LookupReplace extends Component {
     constructor(props) {
         super(props);
         this.updateInputValue = this.updateInputValue.bind(this);
         this.updateSearchValue = this.updateSearchValue.bind(this);
-        this.updateSearchValueEnd = this.updateSearchValueEnd.bind(this);
+        this.updatesearchValueReplacement = this.updatesearchValueReplacement.bind(this);
         this.setName = this.setName.bind(this);
         this.updatesearchStringFlagsValue = this.updatesearchStringFlagsValue.bind(this);
         this.updateRegexFlagsValue = this.updateRegexFlagsValue.bind(this);
@@ -25,19 +25,15 @@ class LookupAdvanced extends Component {
         this.saveSearchesToSearchesCookie = this.saveSearchesToSearchesCookie.bind(this);
         this.loadSearchFromSavedSearches = this.loadSearchFromSavedSearches.bind(this);
         this.pullStateFromCookie = this.pullStateFromCookie.bind(this);
-        this.hcpcManager = this.hcpcManager.bind(this);
         this.resetAll = this.resetAll.bind(this);
 
 
         this.state = {
             input: "Start placeholder text here End more placeholder text",
-            output: "Output Placeholder",
-            noCountOutput: "Output Placeholder",
-            csvOutput: "Output Placeholder",
-            csvDedupeOutput: "Output Placeholder",
+            output: "Output Placeholder 1",
             searchType: "regex",
-            searchValue: "(start[a-z\\s\\n0-9]{0,999})",
-            searchValueEnd: "(end)",
+            searchValue: "([ :;\\.\\,<>a-zA-Z_\\-'o‍c‍o‌]{10,99}(\\.com|\\.c‍om|\\.c‌om)[ :;\\.\\,<>a-zA-Z_\\-'o‍o‌c‍]{0,99})",
+            searchValueReplacement: "",
             searchStringFlags: "c",
             searchRegexFlags: "gmi",
             Searches: {}
@@ -50,14 +46,11 @@ class LookupAdvanced extends Component {
 
 
         this.setState({
-            input: "START Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's END standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            input: "START Lorem Ipsum.com is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's END standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
             output: "Output Placeholder",
-            noCountOutput: "Output Placeholder",
-            csvOutput: "Output Placeholder",
-            csvDedupeOutput: "Output Placeholder",
             searchType: "regex",
-            searchValue: "(start[a-z\\s\\n0-9]{0,999})",
-            searchValueEnd: "(end)",
+            searchValue: "([ :;\\.\\,<>a-zA-Z_\\-'o‍c‍o‌]{10,99}(\\.com|\\.c‍om|\\.c‌om)[ :;\\.\\,<>a-zA-Z_\\-'o‍o‌c‍]{0,99})",
+            searchValueReplacement: "",
             searchStringFlags: "c",
             searchRegexFlags: "gmi",
             name: ""
@@ -73,21 +66,16 @@ class LookupAdvanced extends Component {
         if (num) { } else { num = 0 }
         setTimeout(() => {
             let cookieData = {};
-            // let name = this.state.name ? this.state.name : ""; ;
-            // let input= this.state.input ? this.state.input : "Input Placeholder";
-            // let output= this.state.output ? this.state.output :"Output Placeholder";
-            // let noCountOutput= this.state.noCountOutput ? this.state.noCountOutput :"Output Placeholder";
-            // csvOutput:  "Output Placeholder",
-            // csvDedupeOutput:  "Output Placeholder",
+
             let searchType = this.state.searchType ? this.state.searchType : "regex";
-            let searchValue = this.state.searchValue ? this.state.searchValue : "(start[a-z\\s\\n0-9]{0,999})";
-            let searchValueEnd = this.state.searchValueEnd ? this.state.searchValueEnd : "(end)";
+            let searchValue = this.state.searchValue ? this.state.searchValue : "([ :;\\.\\,<>a-zA-Z_\\-'o‍c‍o‌]{10,99}(\\.com|\\.c‍om|\\.c‌om)[ :;\\.\\,<>a-zA-Z_\\-'o‍o‌c‍]{0,99})";
+            let searchValueReplacement = this.state.searchValueReplacement ? this.state.searchValueReplacement : "";
             let searchStringFlags = this.state.searchStringFlags ? this.state.searchStringFlags : "ci";
             let searchRegexFlags = this.state.searchRegexFlags ? this.state.searchRegexFlags : "gmi";
 
             cookieData.searchType = searchType;
             cookieData.searchValue = searchValue;
-            cookieData.searchValueEnd = searchValueEnd;
+            cookieData.searchValueReplacement = searchValueReplacement;
             cookieData.searchStringFlags = searchStringFlags;
             cookieData.searchRegexFlags = searchRegexFlags;
 
@@ -105,14 +93,10 @@ class LookupAdvanced extends Component {
 
         let cookieData = {};
         let name = this.state.name;
-        // let input= this.state.input ? this.state.input : "Input Placeholder";
-        // let output= this.state.output ? this.state.output :"Output Placeholder";
-        // let noCountOutput= this.state.noCountOutput ? this.state.noCountOutput :"Output Placeholder";
-        // csvOutput:  "Output Placeholder",
-        // csvDedupeOutput:  "Output Placeholder",
+
         let searchType = this.state.searchType ? this.state.searchType : "regex";
-        let searchValue = this.state.searchValue ? this.state.searchValue : "(start[a-z\\s\\n0-9]{0,999})";
-        let searchValueEnd = this.state.searchValueEnd ? this.state.searchValueEnd : "(end)";
+        let searchValue = this.state.searchValue ? this.state.searchValue : "([ :;\\.\\,<>a-zA-Z_\\-'o‍c‍o‌]{10,99}(\\.com|\\.c‍om|\\.c‌om)[ :;\\.\\,<>a-zA-Z_\\-'o‍o‌c‍]{0,99})";
+        let searchValueReplacement = this.state.searchValueReplacement ? this.state.searchValueReplacement : "";
         let searchStringFlags = this.state.searchStringFlags ? this.state.searchStringFlags : "ci";
         let searchRegexFlags = this.state.searchRegexFlags ? this.state.searchRegexFlags : "gmi";
         let nameValue = this.state.name ? this.state.name : "";
@@ -128,7 +112,7 @@ class LookupAdvanced extends Component {
         cookieData[name] = {};
         cookieData[name].searchType = searchType;
         cookieData[name].searchValue = searchValue;
-        cookieData[name].searchValueEnd = searchValueEnd;
+        cookieData[name].searchValueReplacement = searchValueReplacement;
         cookieData[name].searchStringFlags = searchStringFlags;
         cookieData[name].searchRegexFlags = searchRegexFlags;
         cookieData[name].name = nameValue;
@@ -180,7 +164,7 @@ class LookupAdvanced extends Component {
 
             // }else{
             Object.keys(fetchedSearch).forEach(element => {
-                if (element !== "Searches" && element !== "input" && element !== "output" && element !== "noCountOutput" && element !== "csvOutput" && element !== "csvDedupeOutput") {
+                if (element !== "Searches" && element !== "input" && element !== "output" ) {
                     this.setState({
                         [element]: fetchedSearch[element]
                     })
@@ -206,9 +190,9 @@ class LookupAdvanced extends Component {
         this.saveStateToCookie()
     }
 
-    updateSearchValueEnd(e) {
+    updatesearchValueReplacement(e) {
         e.preventDefault();
-        this.setState({ searchValueEnd: e.target.value });
+        this.setState({ searchValueReplacement: e.target.value });
         this.saveStateToCookie()
     }
 
@@ -260,85 +244,23 @@ class LookupAdvanced extends Component {
 
     }
 
-
-    hcpcManager(input) { // expands all hcpc ranges in document
-        let NumRegex = new RegExp("\\d{4}", "gmi");
-        let LetterRegex = new RegExp("[A-CE-Z]", "gmi");
-        let HCPCRegexRange = new RegExp("([A-CE-Z][0-9]{4}[\\t]{0,3}[-—]{0,2}(through){0,1}(to){0,1}[\\t]{0,3}[A-CE-Z][0-9]{4})", "gmi");
-        // console.log("range matches include", input.match(HCPCRegexRange))
-
-
-
-        let result = input.replace(HCPCRegexRange, function (element) {
-
-            let letters = element.match(LetterRegex);
-            let numbers = element.match(NumRegex);
-            let store = [];
-
-            if (letters.length !== 2 | numbers.length !== 2 | numbers[0] > numbers[1]) { alert("failed match") } else {
-                let i = numbers[0]
-                for (i; i <= numbers[1]; i++) {
-                    store.push(letters[0] + i)
-                }
-            }
-
-            store = store.join(",")
-            return store
-        });
-
-        return result
-
-
-
-    }
+    // not used, but left in for now
+    
 
     setSearchValue() {
         let input = this.state.input;
         let searchRegexFlags = this.state.searchRegexFlags;
         let search = this.state.searchValue;
-        let searchEnd = this.state.searchValueEnd;
-        let searchType = this.state.searchType;
-        let caseSensitive;
-
-        // console.log("setSearchValue, step 0 - input is ", input)
-
-
-        input = this.hcpcManager(input);
-
-        // console.log("setSearchValue, step 1 passed - input is ", input)
-
-        if (searchRegexFlags.indexOf("i") === -1) { // if case sensitive true  - no i flag
-            caseSensitive = true
-        } else {
-            caseSensitive = false
-        }
+        let searchReplacement = this.state.searchValueReplacement;
 
         //if the regex option is chosen search as is - assign to array for the forEach loop below
         //if the list option is chosen split into an array and regex search each element
-        if (searchType === "string") {
-            if (searchRegexFlags.indexOf("g") === -1) {
-                this.setState({ searchRegexFlags: searchRegexFlags + "g" });
-                searchRegexFlags = searchRegexFlags + "g"
-            }
-            if (searchRegexFlags.indexOf("m") === -1) {
-                this.setState({ searchRegexFlags: searchRegexFlags + "m" });
-                searchRegexFlags = searchRegexFlags + "m"
-            }
 
-            search = search.split(",");
-            searchEnd = searchEnd.split(",");
-            search = Array.from(new Set(search));
-            searchEnd = Array.from(new Set(searchEnd));
-            search = search.map(element => "(" + element + "[a-zA-Z\\:\\,\\.\\-\\'•=\\/\\s\\n0-9\\\\ \\\"]{0,9999})")
-            searchEnd = searchEnd.map(element => "(" + element + ")")
+        search = [search]
+        searchReplacement = [searchReplacement]
+        
+        let output = input;
 
-        } else {
-            search = [search]
-            searchEnd = [searchEnd]
-        }
-        let output = [];
-        let matcher2 = [];
-        // console.log("setSearchValue, step 2 passed - input is" ,input)
 
 
         search.forEach(element => {
@@ -348,98 +270,19 @@ class LookupAdvanced extends Component {
                 this.saveStateToCookie()
                 return
             } else {
-                // console.log("not null search",element)
-
-                // update this to keep a track of the specific order of matches
-                let match;
-                let matcher = []; // input.match(new RegExp(element, searchRegexFlags))
                 let test = new RegExp(element, searchRegexFlags);
-                // console.log("not null regex",test)
-                let i = 0
-                while ((match = test.exec(input)) != null && i < 500) {
-                    console.log("match",match)
-                    matcher.push([match[0], parseInt(match.index)])
-                    i++
-                }
-
-                //if no matches
-                if (matcher === null) {
-                    this.setState({ output: "No Matches" });
-                    this.saveStateToCookie()
-                    return
-                }
-                matcher2 = [...matcher2, ...matcher]
+                output = input.replaceAll(test, searchReplacement)
+                this.setState({ output: output });
+                this.saveStateToCookie()
+                return
+                
             }
         }
         )
 
-        // console.log("setSearchValue, step 3 passed", " matcher2 == ", matcher2)
-
-        if (matcher2.length >= 1 && Array.isArray(matcher2)) {
-            // matcher = matcher.split(",") 
-            matcher2 = matcher2.sort(([a, b], [c, d]) => b - d);
-            matcher2.forEach(element => {
-                // console.log("matcher32", element)
-                if (Array.isArray(searchEnd)) {
-                    searchEnd.forEach(term => {
-                        let test2 = new RegExp(term, searchRegexFlags);
-                        element[0] = element[0].split(test2)[0]
-                    });
-                    output = [...output, element[0]]
-                }
-            });
-
-
-
-        }
-
-        // console.log("step 4")
-
-        let noCountOutput = output.join("<br><br>");
-        let csvOutput = output.join(",");
-
-        let uniqueOutput = [];
-        let counts = [];
-        let countOutput = [];
-        let csvDedupeOutput = [];
-
-        output.forEach(element => {
-            if (!caseSensitive) {
-                // console.log("element,", element)
-                let lowerCaseUniqueOutput = uniqueOutput.map(element => element.toLowerCase())
-                let pos = lowerCaseUniqueOutput.indexOf(element.toLowerCase());
-                if (pos === -1) {
-                    uniqueOutput.push(element)
-                    counts.push(1)
-                } else {
-                    counts[pos] = counts[pos] + 1;
-                }
-
-            } else {
-                let pos = uniqueOutput.indexOf(element);
-                if (pos === -1) {
-                    uniqueOutput.push(element)
-                    counts.push(1)
-                } else {
-                    counts[pos] = counts[pos] + 1;
-                }
-            }
-        });
-
-        uniqueOutput.forEach((element, index) => {
-            countOutput.push(element + " - " + counts[index] + " times");
-            csvDedupeOutput.push(element);
-        });
-
-
-
-
-
         this.setState({
-            output: countOutput.join("\n\n"),
-            noCountOutput: noCountOutput,
-            csvOutput: csvOutput,
-            csvDedupeOutput: csvDedupeOutput.join(",")
+            output: output,
+    
         });
         this.saveStateToCookie()
     }
@@ -451,7 +294,7 @@ class LookupAdvanced extends Component {
             <Container >
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>Slicing lookup</title>
+                    <title>Regex Lookup and Replace</title>
                 </Helmet>
                 <Row>
 
@@ -468,35 +311,21 @@ class LookupAdvanced extends Component {
                                     />
                                 </Col>
                                 <Col lg="6" xl="6" md="6" sm="12">
-                                    {this.state.searchStringFlags.indexOf("c") !== -1 && <TextAreaJodit
-                                        name="Output"
-                                        value={this.state.noCountOutput}
+                                {/* <TextAreaJodit
+                                        name="Output 1"
+                                        value={this.state.output}
                                         rows="12"
                                         readonly="true"
                                         styler={{"fontSize":"12px"}}
-                                    />}
-
-                                    {this.state.searchStringFlags.indexOf("a") !== -1 && <TextArea
+                                    />
+                                     */}
+                                    
+                                    <TextArea
                                         name="Output"
                                         value={this.state.output}
-                                        rows="18"
-                                    />}
-
-                                    {this.state.searchStringFlags.indexOf("s") !== -1 && <TextArea
-                                        name="Output"
-                                        value={this.state.csvDedupeOutput}
-                                        rows="18"
-                                    />}
-
-                                    {this.state.searchStringFlags.indexOf("h") !== -1 && <TextArea
-                                        name="Output"
-                                        value={this.state.csvOutput}
-                                        rows="18"
-                                    />}
-
-
-
-
+                                        rows="22"
+                                        fontSize="10px"
+                                        />
 
 
                                 </Col>
@@ -512,24 +341,16 @@ class LookupAdvanced extends Component {
                             />
 
                             <TextAreaQuery
-                                name="Search String End"
-                                value={this.state.searchValueEnd}
+                                name="Replacement String"
+                                value={this.state.searchValueReplacement}
                                 rows="3"
-                                onChange={this.updateSearchValueEnd}
-                            // buttonOnClick={this.setSearchValueEnd}
-                            // buttonText="Search"
+                                onChange={this.updatesearchValueReplacement}
                             />
 
                             <Card1
-                                text={<div><p>A variant of the lookup tool, this page takes 2 regexes or lists of strings and returns any match for the first regex and truncates it where the second regex starts.
+                                text={<div><p>Enter a regex to find in the input text, all matches will be replaced with the contents of the Replace box. List option is disabled.
                                     </p><ul>
-                                        <p style={{ "fontWeight": "900" }}>Press Reset Page and click search for an example</p>
-                                        <li>The first regex matches the keyword 'Start' and 999 characters after it</li>
-                                        <li>The second regex matches the keyword 'End'</li>
-                                        <li>As a result we get the first 999 characters after Start until End cuts it off early</li>
-                                        <li>With the list option these would be Start and End respectively - the list option is also hardcoded to find 9999 characters</li>
-
-                                        <li>Note: Some features are disabled in list mode</li>
+                                        <li>The default replacement removes any lines (up to 99*2 characters) with the text .com in them - centered around .com</li>
 
 
                                     </ul></div>}
@@ -570,27 +391,11 @@ class LookupAdvanced extends Component {
                                     onClick={() => this.updatesearchStringFlagsValue("c")}
                                 >
                                     Show All</Button>
-                                {/* <Button
-                                    color={this.state.searchStringFlags.indexOf("a") !== -1 ? "info" : "secondary"}
-                                    onClick={() => this.updatesearchStringFlagsValue("a")}
-                                >
-                                    Count</Button>
-                                <Button
-                                    color={this.state.searchStringFlags.indexOf("s") !== -1 ? "info" : "secondary"}
-                                    onClick={() => this.updatesearchStringFlagsValue("s")}
-                                >
-                                    CSV Trimmed</Button>
-                                <Button
-                                    color={this.state.searchStringFlags.indexOf("h") !== -1 ? "info" : "secondary"}
-                                    onClick={() => this.updatesearchStringFlagsValue("h")}
-                                >
-                                    CSV</Button> */}
-
+                            
                             </ButtonGroup>
 
 
                             <ButtonGroup size="" className="buttonGroup">
-                                {/* <label>Search Type</label> */}
                                 <Button
                                     color={this.state.searchType.indexOf("regex") !== -1 ? "primary" : "secondary"}
                                     onClick={() => this.updateSearchType("regex")}
@@ -598,7 +403,7 @@ class LookupAdvanced extends Component {
                                     Regex</Button>
                                 <Button
                                     color={this.state.searchType.indexOf("string") !== -1 ? "primary" : "secondary"}
-                                    onClick={() => this.updateSearchType("string")}
+                                    
                                 >
                                     List</Button>
 
@@ -640,5 +445,5 @@ class LookupAdvanced extends Component {
 }
 
 
-export default withRouter(LookupAdvanced)
+export default withRouter(LookupReplace)
 

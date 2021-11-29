@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 import './Universal.css';
 import TextArea from './subComponents/TextArea';
 import Card1 from './subComponents/Card1';
+import { Helmet } from "react-helmet";
 
 
 class MasterPAFormatter extends Component {
@@ -17,7 +18,7 @@ class MasterPAFormatter extends Component {
         this.saveFontCookie = this.saveFontCookie.bind(this);
         this.loadFontCookie = this.loadFontCookie.bind(this);
 
-        
+
         this.state = {
             input: "Placeholder",
             output: "Output Placeholder",
@@ -47,9 +48,9 @@ class MasterPAFormatter extends Component {
 
     loadFontCookie() {
         let font = localStorage.getItem('fontSize');
-        console.log("fontSize",font)
-        if(font !== null && Number.isInteger(font)){
-            this.setState({fontSize: font})
+        console.log("fontSize", font)
+        if (font !== null && Number.isInteger(font)) {
+            this.setState({ fontSize: font })
         }
     }
 
@@ -86,12 +87,12 @@ class MasterPAFormatter extends Component {
 
 
     headerManager(inputer) {
-        let headingsRegex = new RegExp("(Affected[\\s]Drugs)|(Exclusion[\\s ]Criteria)|(PA[\\s ]Indication[\\s ]Indicator)|(Required[\\s ]Medical[\\s ]Information)|(Medical[\\s ]Information)|(Age[\\s ]Restriction[()s]{0,3})|(Prescriber[\\s ]Restriction[()s]{0,3})|(Coverage[\\s ]Duration)|(Other[\\s ]Criteria)|(Off[\-\\s ]]{0,1}Label[\\s ]Use[()s]{0,3})|(Products[\\s ]Affected)|(PA[\\s ]Criteria)|(Last[\\s ]Updated)|([pP]age[\\s ][\\d]{1,4})|(Covered[\\s ]Use[()s]{0,3})|(Medication[()s]{0,3})|(Prior[\\-\\s ]{0,1}Authorization[\\-\\s ]{0,1}Group)|(Formulary ID [\\d]{2,10})|(Required[\\s ]Medical[\\s ]Info)|(Criteria[\\s ]Details)|(Prior[\\s ]Authorization[\\s ]Indication)|(Prior[\\s ]Authorization[\\s ]Group[\\s ]Description)|(Required[\\s ]Medical:)|(Updated [\\d]{2})|(AFFECTED[\\S]DRUGS)|(EXCLUSION[\\S ]CRITERIA)|(PA[\\S ]INDICATION[\\S ]INDICATOR)|(REQUIRED[\\S ]MEDICAL[\\S ]INFORMATION)|(MEDICAL[\\S ]INFORMATION)|(AGE[\\S ]RESTRICTION[()S]{0,3})|(PRESCRIBER[\\S ]RESTRICTION[()S]{0,3})|(COVERAGE[\\S ]DURATION)|(OTHER[\\S ]CRITERIA)|(OFF[\-\\S ]]{0,1}LABEL[\\S ]USE[()S]{0,3})|(PRODUCTS[\\S ]AFFECTED)|(PA[\\S ]CRITERIA)|(LAST[\\S ]UPDATED)|([PP]AGE[\\S ][\\D]{1,4})|(COVERED[\\S ]USE[()S]{0,3})|(MEDICATION[()S]{0,3})|(PRIOR[\\-\\S ]{0,1}AUTHORIZATION[\\-\\S ]{0,1}GROUP)|(FORMULARY ID [\\D]{2,10})|(REQUIRED[\\S ]MEDICAL[\\S ]INFO)|(CRITERIA[\\S ]DETAILS)|(PRIOR[\\S ]AUTHORIZATION[\\S ]INDICATION)|(PRIOR[\\S ]AUTHORIZATION[\\S ]GROUP[\\S ]DESCRIPTION)|(REQUIRED[\\S ]MEDICAL:)|(UPDATED [\\D]{2})", "gm")
+        let headingsRegex = new RegExp("(Affected[\\s]Drugs)|(Exclusion[\\s ]Criteria)|(PA[\\s ]Indication[\\s ]Indicator)|(Required[\\s ]Medical[\\s ]Information)|(Medical[\\s ]Information)|(Age[\\s ]Restriction[()s]{0,3})|(Prescriber[\\s ]Restriction[()s]{0,3})|(Coverage[\\s ]Duration)|(Other[\\s ]Criteria)|(Off[\-\\s ]]{0,1}Label[\\s ]Use[()s]{0,3})|(Products[\\s ]Affected)|(PA[\\s ]Criteria)|(Last[\\s ]Updated)|([pP]age[\\s ][\\d]{1,4})|(Covered[\\s ]Use[()s]{0,3})|(Medication[()s]{0,3})|(Prior[\\-\\s ]{0,1}Authorization[\\-\\s ]{0,1}Group)|(Formulary ID [\\d]{2,10})|(Required[\\s ]Medical[\\s ]Info)|(Criteria[\\s ]Details)|(Prior[\\s ]Authorization[\\s ]Indication)|(Prior[\\s ]Authorization[\\s ]Group[\\s ]Description)|(Required[\\s ]Medical:)|(Updated [\\d]{2})|(AFFECTED[\\S]DRUGS)|(EXCLUSION[\\S ]CRITERIA)|(PA[\\S ]INDICATION[\\S ]INDICATOR)|(REQUIRED[\\S ]MEDICAL[\\S ]INFORMATION)|(MEDICAL[\\S ]INFORMATION)|(AGE[\\S ]RESTRICTION[()S]{0,3})|(PRESCRIBER[\\S ]RESTRICTION[()S]{0,3})|(COVERAGE[\\S ]DURATION)|(OTHER[\\S ]CRITERIA)|(OFF[\-\\S ]]{0,1}LABEL[\\S ]USE[()S]{0,3})|(PRODUCTS[\\S ]AFFECTED)|(PA[\\S ]CRITERIA)|(LAST[\\S ]UPDATED)|([PP]AGE[\\S ][\\D]{1,4})|(COVERED[\\S ]USE[()S]{0,3})|(MEDICATION[()S]{0,3})|(PRIOR[\\-\\S ]{0,1}AUTHORIZATION[\\-\\S ]{0,1}GROUP)|(FORMULARY ID [\\D]{2,10})|(REQUIRED[\\S ]MEDICAL[\\S ]INFO)|(CRITERIA[\\S ]DETAILS)|(PRIOR[\\S ]AUTHORIZATION[\\S ]INDICATION)|(PRIOR[\\S ]AUTHORIZATION[\\S ]GROUP[\\S ]DESCRIPTION)|(REQUIRED[\\S ]MEDICAL:)|(Prior[\\s\\-]{0,2}Authorization[\\s\\-]{0,2}Protocol)|(Group[\\s\\-]{0,2}Description[\\s\\-]{0,2}\\:)|(UPDATED [\\D]{2})", "gm")
 
         let wrongHeadingsRegex = new RegExp("(accepted[\\s]{0,3}[\\n]Indications)|(approved[\\s]{0,3}[\\n]Indications)|(No[\\s]{0,3}[\\n]Age[\\s ]{0,3}Restriction)|(No[\\s]{0,3}[\\n]Exclusion[\\s ]{0,3}Criteria)", "gmi")
 
-        let bulletsRegex = new RegExp("[•]|([\\s ]o[\\s ])","gmi")
-        let noDoubleBulletRegex =  new RegExp("[\\n]{2}[•]|([\\n]{2}[\\s ]o[\\s ])","gmi")
+        let bulletsRegex = new RegExp("[•]|([\\s ]o[\\s ])", "gmi")
+        let noDoubleBulletRegex = new RegExp("[\\n]{2}[•]|([\\n]{2}[\\s ]o[\\s ])", "gmi")
 
         let CapsHeadings = new RegExp("[\\s ]{0,1}Indications[\\s ]", "gm");
         let newLine = new RegExp("\\n{1,55}", "gmi");
@@ -111,7 +112,7 @@ class MasterPAFormatter extends Component {
         })
 
 
-        input = input.replace(bulletsRegex,function(element){
+        input = input.replace(bulletsRegex, function (element) {
             return "\n" + element
         })
         //END handling the different regex for special headings
@@ -125,19 +126,19 @@ class MasterPAFormatter extends Component {
 
         result = result.replace(wrongHeadingsRegex, function (element) {
             console.log(element)
-            element = element.replace("\n"," ");
-            element = element.replace("  "," ");
+            element = element.replace("\n", " ");
+            element = element.replace("  ", " ");
             return element
         });
 
-        let result2 = result.replace(newLine,"\n\n")
+        let result2 = result.replace(newLine, "\n\n")
         result2 = result2.replace(noDoubleBulletRegex, function (element) {
-            element = element.replace("\n\n","\n");
+            element = element.replace("\n\n", "\n");
             return element
         });
-        
-        
-      
+
+
+
 
 
         result = result.trim();
@@ -163,13 +164,17 @@ class MasterPAFormatter extends Component {
     render() {
         return (
             <Container >
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>Master PA</title>
+                </Helmet>
                 <Row>
 
 
                     <Col lg="12" xl="12" md="12" sm="12">
                         <Jumbotron className="mainPanel panel">
                             <Col lg="12" xl="12" md="12" sm="12">
-                                <h5>Master PA Formatter <span style={{fontSize: "10px"}}>v1.05</span></h5>
+                                <h5>Master PA Formatter <span style={{ fontSize: "10px" }}>v1.05</span></h5>
                             </Col>
                             <Row>
                                 <Col lg="6" xl="6" md="6" sm="12">

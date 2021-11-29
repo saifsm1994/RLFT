@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 import './Universal.css';
 import TextArea from './subComponents/TextArea';
 import Card1 from './subComponents/Card1';
+import { Helmet } from "react-helmet";
 
 
 class GSheetFormatter extends Component {
@@ -158,12 +159,12 @@ class GSheetFormatter extends Component {
 
     }
 
-    
+
     updateRegexFlagsValue2(val) {
         // console.log("calling updateRegexFlagsValue with " + val)
         let GSheetFormulaFlag = this.state.GSheetFormulaFlag2;
 
-   
+
         //radio settings for list/csv - rl is return list rcm is return csv
         if (val === "rl") {
             GSheetFormulaFlag = GSheetFormulaFlag.replace("rcm", "");
@@ -268,6 +269,10 @@ class GSheetFormatter extends Component {
     render() {
         return (
             <Container >
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>Gsheet Formatter</title>
+                </Helmet>
                 <Row>
 
 
@@ -279,7 +284,7 @@ class GSheetFormatter extends Component {
                                     <TextArea
                                         name="Input"
                                         value={this.state.input}
-                                        rows="12"
+                                        rows="18"
                                         onChange={this.updateInputValue}
                                         styler={{ fontSize: this.state.fontSize }}
                                     />
@@ -289,33 +294,33 @@ class GSheetFormatter extends Component {
                                         <TextArea
                                             name="Output"
                                             value={this.state.output}
-                                            rows="12"
+                                            rows="18"
                                             styler={{ fontSize: this.state.fontSize }}
-                                            />}
+                                        />}
 
                                     {this.state.GSheetapplyFormula === "false" && this.state.GSheetFormulaFlag2.indexOf("rcm") !== -1 &&
                                         <TextArea
                                             name="Output"
                                             value={this.state.outputCsv}
-                                            rows="12"
+                                            rows="18"
                                             styler={{ fontSize: this.state.fontSize }}
-                                            />}
+                                        />}
 
                                     {this.state.GSheetapplyFormula === "normal" &&
                                         <TextArea
                                             name="Output"
                                             value={this.state.outputWithFormula}
-                                            rows="12"
+                                            rows="18"
                                             styler={{ fontSize: this.state.fontSize }}
-                                            />}
+                                        />}
 
                                     {this.state.GSheetapplyFormula === "reverse" &&
                                         <TextArea
                                             name="Output"
                                             value={this.state.outputWithFormulaReverse}
-                                            rows="12"
+                                            rows="18"
                                             styler={{ fontSize: this.state.fontSize }}
-                                            />}
+                                        />}
 
 
 
@@ -328,21 +333,21 @@ class GSheetFormatter extends Component {
                             <label>First cell under Header</label>
                             <br />
                             <ButtonGroup size="sm" className="buttonGroup">
-                            <input
-                                name="First Cell Under Header"
-                                value={this.state.GSheetCellValue}
-                                onChange={this.updateGSheetCellValue}
-                            />
-                            <Button
-                                color="primary"
-                                style={{ fontSize: 11, marginLeft: "5px" }}
-                                onClick={() => this.launchFunction()}
-                            >Run</Button>
-                            <Button
-                                color="danger"
-                                style={{ fontSize: 11, marginLeft: "5px" }}
-                                onClick={() => this.resetAll()}
-                            >Reset</Button>
+                                <input
+                                    name="First Cell Under Header"
+                                    value={this.state.GSheetCellValue}
+                                    onChange={this.updateGSheetCellValue}
+                                />
+                                <Button
+                                    color="primary"
+                                    style={{ fontSize: 11, marginLeft: "5px" }}
+                                    onClick={() => this.launchFunction()}
+                                >Run</Button>
+                                <Button
+                                    color="danger"
+                                    style={{ fontSize: 11, marginLeft: "5px" }}
+                                    onClick={() => this.resetAll()}
+                                >Reset</Button>
                             </ButtonGroup>
 
                             <ButtonGroup size="sm" className="buttonGroup float-right">
